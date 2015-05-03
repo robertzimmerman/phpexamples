@@ -1,36 +1,27 @@
 <?php
 
 $curSum = 0;
-$coins = [2,3,7,11,55,66];
+$coins = [2,3,5,20,25];
 $index = count($coins) - 1;
-$sum = 3213;
+$sum = 25;
 $change = array();
 $changeSet = array();
+
+/**
+ *  in here order does not matter - combinations
+ * 
+ */
 
 
 function coinChange($curSum, $coins, $index, $sum, $change) {
     
-    //printf("at index $index\n");
-    //printf("currSum = %d \n", $curSum);
-    //printf("this is change \n");
-    //print_r($change);
     if ($index < 0) {
-        //printf("shouldn't we exit");
+             printf("shouldn't we exit");
             return;
     }
     
     
-    $tempSum = 0;
-    $tempSum = $curSum + $coins[$index]; // temp sum to use with future coin
-    //printf("tempSum = %s index %d and coin %d \n", $tempSum, $index, $coins[$index]);   
-    $coin = $coins[$index];
-    
-    array_push($change, $coin); // adding a coin to change
-    //printf("coins are %s \n", implode(",",$change));
-    // base case   
-    
-    
-    if ($tempSum == $sum) {
+    if ($curSum == $sum) {
         
         printf(" change { %s } \n",implode(",",$change)); // print change
         return;
@@ -43,25 +34,35 @@ function coinChange($curSum, $coins, $index, $sum, $change) {
      *  take the $index and -1 of it to the next coin
      *  remove the last change.
      **/
-    
+   /** 
     elseif ($tempSum > $sum) {
         array_pop($change);
         coinChange($curSum, $coins, $index - 1, $sum, $change);
         
     }
+    **/
     else {
+        printf("curSum = %s index %d and coin %d \n", $curSum, $index, $coins[$index]);
+        
         // we need to see if currentCoin is going to go over - or next coin will be over
-        if ($tempSum + $coins[$index] > $sum) {
+        if ($curSum + $coins[$index] > $sum) {
             // lets check if coin next is also going to be greater
             
-            if (($index - 1 >= 0) && (($tempSum + $coins[$index - 1]) > $sum)) {
-                array_pop($change);
+            if (($index - 1 >= 0) && (($curSum + $coins[$index - 1]) > $sum)) {
+                // we are just going to move the index
+                $coin = array_pop($change); // puts in coin in array
+                $curSum -= $coin;
+                coinChange($curSum, $coins, $index - 1, $sum, $change);
+            } else {
                 coinChange($curSum, $coins, $index - 1, $sum, $change);
             }
+            
+        } else {
+            // here we add the same coin and go again
+            array_push($change, $coins[$index]); // puts in coin in array
+            $curSum += $coins[$index];
+            coinChange($curSum, $coins, $index, $sum, $change);
         }
-        $curSum = $tempSum;
-        // here we add the same coin
-        coinChange($curSum, $coins, $index, $sum, $change);
     }
     
 }
