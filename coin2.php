@@ -1,9 +1,9 @@
 <?php
 
 $curSum = 0;
-$coins = [2,3,7,11];
+$coins = [2,3,7,11,55,66];
 $index = count($coins) - 1;
-$sum = 10;
+$sum = 3213;
 $change = array();
 $changeSet = array();
 
