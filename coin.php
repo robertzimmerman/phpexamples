@@ -1,7 +1,7 @@
 <?php
 
 $curSum = 0;
-$coins = [2,3];
+$coins = [3,2];
 $index = count($coins) - 1;
 $sum = 5;
 $change = array();

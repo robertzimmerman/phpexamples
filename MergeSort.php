@@ -1,6 +1,10 @@
 <?php
 class MergeSort {
 
+/**
+ *
+ *  non recursive merge to arrays sorted
+ */
     function merge($left, $right) {
         
         // merge left and right sorting
